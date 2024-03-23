@@ -4,6 +4,7 @@ const { ObjectId } = require('mongodb')
 
 // init app & middleware
 const app = express()
+//When a request is received by the Express application, this middleware parses the incoming request body if it contains JSON data
 app.use(express.json())
 
 // db connection
@@ -19,6 +20,8 @@ connectToDb((err) => {
 })
 
 // routes
+//find the books
+// find method fetch the data which the cursor points to
 app.get('/books', (req, res) => {
   // current page
   const page = req.query.p || 0
@@ -40,6 +43,7 @@ app.get('/books', (req, res) => {
     })
 })
 
+//find one book
 app.get('/books/:id', (req, res) => {
 
   if (ObjectId.isValid(req.params.id)) {
@@ -59,6 +63,7 @@ app.get('/books/:id', (req, res) => {
 
 })
 
+//add a book
 app.post('/books', (req, res) => {
   const book = req.body
 
@@ -72,6 +77,7 @@ app.post('/books', (req, res) => {
     })
 })
 
+//delete a book
 app.delete('/books/:id', (req, res) => {
 
   if (ObjectId.isValid(req.params.id)) {
